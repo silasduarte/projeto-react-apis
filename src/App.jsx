@@ -1,13 +1,11 @@
-import Header from "./Components/Header/Header";
-import PokemonListPage from "./Components/pages/PokemonListPage/PokemonListPage";
+import { Router } from "./Components/Routers/Routers";
 import GlobalStyles from "./GlobalStyles";
 
 function App() {
   return (
     <>
       <GlobalStyles />
-      <Header />
-      <PokemonListPage />
+      <Router />
     </>
   );
 }

@@ -1,5 +1,6 @@
 import {
   BoxInfoAndType,
+  BoxTipo,
   CapturarButtom,
   CardBox,
   Container,
@@ -11,22 +12,36 @@ import {
   TypeImg,
 } from "./pokemonCardStyles";
 import pokebola from "../../assets/img/pokebola.svg";
-import tipo1 from "../../assets/img/fire.svg";
-import charmander from "../../assets/img/charmander.svg";
+import { useNavigate } from "react-router-dom";
+import pokemonTypes from "../../pokemonTypes";
+import { goToDetail } from "../Routers/cordinator";
 
-function PokemonCard() {
+function PokemonCard({ name, image, id, types, pokemon }) {
+  const navigate = useNavigate();
   return (
     <>
       <Container>
-        <PokemonImage src={charmander} alt="Pokemon" />
-        <CardBox>
+        <PokemonImage src={image} alt="Pokemon" />
+        <CardBox types={types}>
           <InfoBox>
             <BoxInfoAndType>
-              <IdPokemon>#04</IdPokemon>
-              <NomePokemon>Charmander</NomePokemon>
-              <TypeImg src={tipo1} alt="" />
+              <IdPokemon>{id}</IdPokemon>
+              <NomePokemon>{name}</NomePokemon>
+              <BoxTipo>
+                {types.map((type) => (
+                  <TypeImg
+                    key={type.type.name}
+                    src={pokemonTypes[type.type.name]}
+                    alt={type.type.name}
+                  />
+                ))}
+              </BoxTipo>
             </BoxInfoAndType>
-            <DetailButtom>
+            <DetailButtom
+              onClick={() => {
+                goToDetail(navigate, pokemon);
+              }}
+            >
               <u> Detalhes</u>
             </DetailButtom>
           </InfoBox>

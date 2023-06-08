@@ -1,10 +1,9 @@
 import styled from "styled-components";
 export const TituloDaPagina = styled.h1`
-  margin-top: 6.6vh;
-  margin-left: 2vw;
-
+  font-size: 1.6rem;
+  margin-top: 7vh;
+  margin-left: 5vw;
   font-family: "Poppins", sans-serif;
-  font-style: normal;
   font-weight: 700;
   font-size: 2.5vw;
   color: #ffffff;
@@ -12,7 +11,7 @@ export const TituloDaPagina = styled.h1`
 
 export const CardsContainer = styled.div`
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: row;
   flex-wrap: wrap;
-  gap: 5vw;
+  gap: 2vw;
 `;

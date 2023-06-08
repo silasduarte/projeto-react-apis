@@ -1,42 +1,67 @@
 import styled from "styled-components";
 
 export const Container = styled.header`
-  border: 1px solid black;
-  height: 15vh;
-  display: flex;
-  width: 100%;
-  justify-content: space-around;
-  align-items: center;
   background-color: #ffffff;
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  width: 100%;
+  align-items: center;
+  height: 10rem;
 `;
 export const BotaoPokedex = styled.button`
-  color: white;
-  width: 15vw;
-  max-width: 25vh;
-  min-height: 10vh;
-  background: #33a4f5;
-  border-radius: 1vw;
+  grid-column: 13/16;
+  width: 14.125rem;
+  height: 3.563rem;
   border: none;
-  cursor: pointer;
-  font-size: 2vw;
+  border-radius: 0.5rem;
+  padding: 0.25rem, 0.625rem, 0.25rem, 0.625rem;
+  background: #33a4f5;
   font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5rem;
+  color: #ffffff;
+  cursor: pointer;
 `;
 
 export const Logo = styled.img`
-  max-width: 15vw;
-  min-height: 20vw;
+  grid-column: 7/11;
+  width: 19.188rem;
+  height: 7.063rem;
 `;
 
 export const BotaoHome = styled.button`
-  background-color: transparent;
+  z-index: 2;
+  grid-column: 2/5;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  width: 15rem;
+  height: 2.25rem;
+  background: transparent;
   border: none;
+  text-decoration: underline;
   cursor: pointer;
-  font-family: "Poppins";
+  img {
+    width: 1.563;
+    height: 1.563;
+    text-decoration: none;
+  }
+`;
+
+export const ButtonRemovePokemon = styled.button`
+  height: 30%;
+  border: none;
+  font-family: "Poppins", sans-serif;
   font-style: normal;
   font-weight: 700;
-  font-size: 1.5vw;
-  width: 14vw;
-  img {
-    height: 2vh;
-  }
+  font-size: 0.8vw;
+  color: #ffffff;
+  cursor: pointer;
+  align-self: center;
+  grid-column: 13/16;
+  width: 70%;
+  background: #ff6262;
+  border-radius: 0.4vw;
+  z-index: 2;
 `;
