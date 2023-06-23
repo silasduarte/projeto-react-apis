@@ -5,10 +5,42 @@ import typeImage from "../../Util/types";
 import cor from "../../Util/themes";
 import pokebola from "../../assets/img/pokebola.svg";
 import { goToDetail } from "../Routers/cordinator";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { GlobalContext } from "../../Context/GlobalContext";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+} from "@chakra-ui/react";
 
 function PokemonCard({ pokemon }) {
   const navigate = useNavigate();
+  const { addPokedex, pokedex, removePokedex } = useContext(GlobalContext);
+  console.log(addPokedex);
+  const location = useLocation();
+  const OverlayTwo = () => (
+    <ModalOverlay
+      bg="none"
+      backdropFilter="auto"
+      backdropInvert="10%"
+      backdropBlur="7px"
+    />
+  );
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [overlay, setOverlay] = useState(<OverlayTwo />);
+  function onCloseModal() {
+    onClose();
+    if (location.pathname === "/pokedex") {
+      removePokedex(pokemon);
+    }
+  }
   return (
     <>
       <Box
@@ -72,6 +104,14 @@ function PokemonCard({ pokemon }) {
             Detalhes!
           </Button>
           <Button
+            hidden={pokedex.find(
+              (pokemonFind) => pokemonFind.id === pokemon.id
+            )}
+            zIndex={2}
+            onClick={() => {
+              addPokedex(pokemon);
+              onOpen();
+            }}
             position={"absolute"}
             right={"2rem"}
             bottom={"2rem"}
@@ -83,6 +123,23 @@ function PokemonCard({ pokemon }) {
           >
             Capturar!
           </Button>
+          <Button
+            hidden={location.pathname !== "/pokedex"}
+            zIndex={2}
+            onClick={() => {
+              onOpen();
+            }}
+            position={"absolute"}
+            right={"2rem"}
+            bottom={"2rem"}
+            w={"9.125rem"}
+            borderRadius={"0.5rem"}
+            fontSize={"1rem"}
+            bgColor={"#ff6060"}
+            fontFamily={"Poppins"}
+          >
+            Remover!
+          </Button>
           <Image
             src={pokebola}
             alt="pokebola"
@@ -92,6 +149,25 @@ function PokemonCard({ pokemon }) {
           />
         </Box>
       </Box>
+      <Modal isCentered isOpen={isOpen} onClose={onCloseModal}>
+        {overlay}
+        <ModalContent>
+          <ModalHeader>
+            {location.pathname === "/" ? "Gotcha!" : "Ooh no!"}
+          </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Text>
+              {location.pathname === "/"
+                ? "Pokémon foi capturado com sucesso!"
+                : "Pokémon foi removido com sucesso!"}
+            </Text>
+          </ModalBody>
+          <ModalFooter>
+            <Button onClick={onCloseModal}>Close</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 }
