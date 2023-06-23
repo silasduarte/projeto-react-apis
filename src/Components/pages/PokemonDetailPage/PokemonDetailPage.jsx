@@ -2,10 +2,11 @@ import { Box, Flex, Image, Progress, Text } from "@chakra-ui/react";
 import bigPokeBola from "../../../assets/img/pokemonTypes/pokeballBackGroundDetail.png";
 import miniPokebola from "../../../assets/img/pokemonTypes/pokeballDetailInsideBackground.svg";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { api } from "../../../api";
 import typeImage from "../../../Util/types";
 import cor from "../../../Util/themes";
+import { GlobalContext } from "../../../Context/GlobalContext";
 
 const PokemonDetailPage = () => {
   let total = 0;
@@ -13,9 +14,11 @@ const PokemonDetailPage = () => {
   const params = useParams();
   const [pokemon, setPokemon] = useState({});
   const [loading, setLoading] = useState(true);
+  const { setPokemonGlobal } = useContext(GlobalContext);
   useEffect(() => {
     api.get("/pokemon/" + params.id).then((response) => {
       setPokemon(response.data);
+      setPokemonGlobal(response.data);
       setLoading(false);
     });
   }, []);
@@ -138,18 +141,24 @@ const PokemonDetailPage = () => {
         >
           {pokemon.stats.map((stat) => {
             return (
-              <>
-                <Text textTransform="capitalize">
-                  {stat.stat.name} {stat.base_stat}
-                </Text>
-                <Progress
-                  value={stat.base_stat}
-                  colorScheme={`hsl(${stat.base_stat * 0.8}, 80%, 50%)}`}
-                />
-              </>
+              <Flex alignItems={"center"}>
+                <>
+                  <Text textTransform="capitalize">
+                    {stat.stat.name} {stat.base_stat}
+                  </Text>
+                  <Progress
+                    borderRadius={"0.50rem"}
+                    w={"60%"}
+                    value={stat.base_stat}
+                    colorScheme={`hsl(${stat.base_stat * 0.8}, 80%, 50%)}`}
+                  />
+                </>
+              </Flex>
             );
           })}
-          <Text>Total: {total}</Text>
+          <Text fontFamily={"Poppins"} fontWeight={800}>
+            Total: {total}
+          </Text>
         </Box>
 
         <Box

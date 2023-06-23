@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { api } from "../../../api";
 import PokemonCard from "../../pokemonCard/PokemonCard";
-import { CardsContainer, TituloDaPagina } from "./pokemonListPageStyle";
 import { Grid, Text } from "@chakra-ui/react";
 
 function PokemonListPage() {
   const [pokemons, setPokemons] = useState([]);
 
   useEffect(() => {
-    api.get("/pokemon").then((res) => {
+    api.get("/pokemon", { params: { limit: 30 } }).then((res) => {
       const results = res.data.results;
       console.log(results);
       const promise = results.map((result) => api.get(result.url));
