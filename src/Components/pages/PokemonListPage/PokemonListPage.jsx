@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { api } from "../../../api";
 import PokemonCard from "../../pokemonCard/PokemonCard";
 import { CardsContainer, TituloDaPagina } from "./pokemonListPageStyle";
+import { Grid, Text } from "@chakra-ui/react";
 
 function PokemonListPage() {
   const [pokemons, setPokemons] = useState([]);
@@ -20,19 +21,20 @@ function PokemonListPage() {
   }, []);
   return (
     <>
-      <TituloDaPagina>Todos Pokémons</TituloDaPagina>
-      <CardsContainer>
+      <Text
+        color={"white"}
+        fontFamily={"Poppins"}
+        fontSize={"3rem"}
+        marginTop={"3.75rem"}
+        marginLeft={"5.8rem"}
+      >
+        Todos Pokémons
+      </Text>
+      <Grid templateColumns={"repeat(3,1fr)"} justifyItems={"center"}>
         {pokemons.map((pokemon) => (
-          <PokemonCard
-            pokemon={pokemon}
-            key={pokemon.id}
-            name={pokemon.name}
-            id={pokemon.id}
-            image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
-            types={pokemon.types}
-          ></PokemonCard>
+          <PokemonCard pokemon={pokemon} key={pokemon.id}></PokemonCard>
         ))}
-      </CardsContainer>
+      </Grid>
     </>
   );
 }
