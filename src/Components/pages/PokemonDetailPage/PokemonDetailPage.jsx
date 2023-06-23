@@ -139,11 +139,13 @@ const PokemonDetailPage = () => {
           {pokemon.stats.map((stat) => {
             return (
               <>
-                <Text>
-                  {stat.stat.name}
-                  {stat.base_stat}
+                <Text textTransform="capitalize">
+                  {stat.stat.name} {stat.base_stat}
                 </Text>
-                <Progress value={stat.base_stat} />
+                <Progress
+                  value={stat.base_stat}
+                  colorScheme={`hsl(${stat.base_stat * 0.8}, 80%, 50%)}`}
+                />
               </>
             );
           })}
@@ -159,11 +161,34 @@ const PokemonDetailPage = () => {
           top={"11.5rem"}
           borderRadius={"0.5rem"}
         >
-          Moves:
+          <Text
+            fontWeight={800}
+            fontSize={"1.5rem"}
+            marginBottom={"1rem"}
+            marginTop={"1rem"}
+          >
+            Moves:
+          </Text>
           {pokemon.moves.map((move) => {
             if (moveCount < 5) {
               moveCount++;
-              return <Text>{move.move.name}</Text>;
+              return (
+                <Text
+                  alignItems={"flex-start"}
+                  bgColor={"#ECECEC"}
+                  border={"1px dashed rgba(0, 0, 0, 0.14)"}
+                  borderRadius={"12px"}
+                  w={"10rem"}
+                  h={"2.313rem"}
+                  textTransform={"capitalize"}
+                  marginLeft={"1rem"}
+                  marginBottom={"1rem"}
+                  fontFamily={"Poppins"}
+                  paddingLeft={"0.625rem"}
+                >
+                  {move.move.name}
+                </Text>
+              );
             }
           })}
         </Box>
